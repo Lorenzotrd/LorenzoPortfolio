@@ -21,9 +21,9 @@
           ink2: '#2A2A26',
           mute: '#7A776E',
           rule: '#1A1A17',
-          live: '#3D4A2A',
-          live2: '#2F3A22',
-          good: '#3D4A2A',
+          live: '#5CC974',
+          live2: '#45B85F',
+          good: '#5CC974',
           good2: '#5B7036',
           star: '#B8862C',
         },
@@ -85,13 +85,13 @@
   .pulse-dot { position: relative; }
   .pulse-dot::after{
     content:""; position:absolute; inset:-6px; border-radius:9999px;
-    box-shadow: 0 0 0 0 rgba(61,74,42,.55);
+    box-shadow: 0 0 0 0 rgba(92,201,116,.55);
     animation: pulse 1.8s ease-out infinite;
   }
   @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(61,74,42,.55) }
-    70% { box-shadow: 0 0 0 14px rgba(61,74,42,0) }
-    100% { box-shadow: 0 0 0 0 rgba(61,74,42,0) }
+    0% { box-shadow: 0 0 0 0 rgba(92,201,116,.55) }
+    70% { box-shadow: 0 0 0 14px rgba(92,201,116,0) }
+    100% { box-shadow: 0 0 0 0 rgba(92,201,116,0) }
   }
 
   /* Marquee */
@@ -100,7 +100,7 @@
 
   /* Feed item slide-in */
   @keyframes slidein {
-    from { opacity:0; transform: translateY(-6px); background: rgba(61,74,42,.08); }
+    from { opacity:0; transform: translateY(-6px); background: rgba(92,201,116,.08); }
     to   { opacity:1; transform: translateY(0); background: transparent; }
   }
   .feed-row { animation: slidein .55s cubic-bezier(.2,.7,.2,1); }
@@ -153,7 +153,7 @@
     font-style: italic;
     font-weight: inherit;
     text-decoration: underline;
-    text-decoration-color: #3D4A2A;
+    text-decoration-color: #5CC974;
     text-decoration-thickness: 4px;
     text-underline-offset: 0.12em;
     margin-right: 0.18em;
@@ -739,16 +739,16 @@ setInterval(()=>feedState.tickRel(), 1000);
 
 /* ---------- Agents ---------- */
 const AGENTS = [
-  ['SDR',        'lead research',      'A1', '#3D4A2A'],
-  ['Outreach',   'personalized DM',    'A2', '#3D4A2A'],
-  ['Content',    'posts / threads',    'A3', '#3D4A2A'],
-  ['Email',      'sequences',          'A4', '#3D4A2A'],
-  ['Competitor', 'weekly scrape',      'A5', '#3D4A2A'],
-  ['CRM',        'pipeline ops',       'A6', '#3D4A2A'],
-  ['Strategy',   'planning',           'A7', '#3D4A2A'],
-  ['Recruiter',  'Reddit + X',         'A8', '#3D4A2A'],
-  ['Token',      'market scoring',     'A9', '#3D4A2A'],
-  ['Operator',   'QA / safety',        'A10','#3D4A2A'],
+  ['SDR',        'lead research',      'A1', '#5CC974'],
+  ['Outreach',   'personalized DM',    'A2', '#5CC974'],
+  ['Content',    'posts / threads',    'A3', '#5CC974'],
+  ['Email',      'sequences',          'A4', '#5CC974'],
+  ['Competitor', 'weekly scrape',      'A5', '#5CC974'],
+  ['CRM',        'pipeline ops',       'A6', '#5CC974'],
+  ['Strategy',   'planning',           'A7', '#5CC974'],
+  ['Recruiter',  'Reddit + X',         'A8', '#5CC974'],
+  ['Token',      'market scoring',     'A9', '#5CC974'],
+  ['Operator',   'QA / safety',        'A10','#5CC974'],
 ];
 (function renderAgents(){
   const list = document.getElementById('agents');
