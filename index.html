@@ -1,0 +1,809 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Lorenzo Trichard — Marketing Engineer / Growth Architect</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          paper: '#F6F4EE',
+          paper2: '#EDE9DF',
+          ink: '#0E0E0C',
+          ink2: '#2A2A26',
+          mute: '#7A776E',
+          rule: '#1A1A17',
+          live: '#E5482A',
+          live2: '#C13818',
+          good: '#3D4A2A',
+          good2: '#5B7036',
+          star: '#B8862C',
+        },
+        fontFamily: {
+          mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+          sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+          serif: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+          fra:  ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+        },
+      }
+    }
+  }
+</script>
+
+<style>
+  :root { color-scheme: light; }
+  html, body { background: #F6F4EE; color: #0E0E0C; }
+  body { font-family: "Plus Jakarta Sans", system-ui, sans-serif; font-feature-settings: "ss01","cv11","tnum"; }
+
+  /* Paper grain */
+  .grain::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:1;
+    background-image:
+      radial-gradient(rgba(14,14,12,0.05) 1px, transparent 1px),
+      radial-gradient(rgba(14,14,12,0.04) 1px, transparent 1px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 1px 2px;
+    opacity:.35; mix-blend-mode:multiply;
+  }
+
+  .hairline { border-color: rgba(14,14,12,0.14); }
+  .hairline-strong { border-color: rgba(14,14,12,0.3); }
+
+  .tnum { font-variant-numeric: tabular-nums; }
+
+  .blink { animation: blink 1.2s steps(2,end) infinite; }
+  @keyframes blink { 50% { opacity: .25 } }
+
+  .pulse-dot { position: relative; }
+  .pulse-dot::after{
+    content:""; position:absolute; inset:-6px; border-radius:9999px;
+    box-shadow: 0 0 0 0 rgba(229,72,42,.55);
+    animation: pulse 1.8s ease-out infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(229,72,42,.55) }
+    70% { box-shadow: 0 0 0 14px rgba(229,72,42,0) }
+    100% { box-shadow: 0 0 0 0 rgba(229,72,42,0) }
+  }
+
+  /* Marquee */
+  .marquee { display:flex; gap: 3rem; animation: marq 38s linear infinite; will-change: transform; }
+  @keyframes marq { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+
+  /* Feed item slide-in */
+  @keyframes slidein {
+    from { opacity:0; transform: translateY(-6px); background: rgba(229,72,42,.08); }
+    to   { opacity:1; transform: translateY(0); background: transparent; }
+  }
+  .feed-row { animation: slidein .55s cubic-bezier(.2,.7,.2,1); }
+
+  /* Card hover lift */
+  .card { transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s, border-color .35s; }
+  .card:hover { transform: translateY(-4px); border-color: rgba(14,14,12,.55); box-shadow: 8px 8px 0 0 rgba(14,14,12,.08); }
+  .card:hover .card-arrow { transform: translateX(4px); }
+  .card-arrow { transition: transform .3s; }
+
+  /* Section label */
+  .seclbl { letter-spacing: .22em; font-size: 11px; }
+
+  /* Counter underline */
+  .counter-line { background: linear-gradient(90deg, #0E0E0C 0%, #0E0E0C 100%); background-size: 0% 1px; background-repeat: no-repeat; background-position: 0 100%; transition: background-size 1.6s ease; }
+  .counter-line.in { background-size: 100% 1px; }
+
+  /* Glyph circle */
+  .glyph { font-family: "Instrument Serif", serif; font-style: italic; }
+
+  /* Star card */
+  .star-card {
+    background:
+      repeating-linear-gradient(135deg, rgba(184,134,44,.06) 0 2px, transparent 2px 10px),
+      #F6F4EE;
+    border: 1.5px solid #0E0E0C;
+    box-shadow: 6px 6px 0 0 #0E0E0C;
+  }
+  .star-card:hover { box-shadow: 10px 10px 0 0 #0E0E0C; transform: translate(-2px,-2px); }
+
+  /* Connect tile arrow */
+  .tile:hover .tile-arrow { transform: translate(2px,-2px); }
+  .tile-arrow { transition: transform .25s; }
+
+  .underline-link { background-image: linear-gradient(currentColor,currentColor); background-size: 100% 1px; background-repeat: no-repeat; background-position: 0 100%; }
+
+  /* Sparkline svg */
+  .spark path { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: dash 2.4s ease forwards; }
+  @keyframes dash { to { stroke-dashoffset: 0 } }
+
+  /* Bar grow */
+  .bar { transform-origin: bottom; transform: scaleY(0); transition: transform 1.2s cubic-bezier(.2,.8,.2,1); }
+  .bar.in { transform: scaleY(1); }
+
+  /* Caret cursor */
+  .caret::after{ content:""; display:inline-block; width:.55em; height:1em; background:#0E0E0C; vertical-align:-2px; margin-left:.18em; animation: blink 1s steps(2,end) infinite; }
+
+  /* Italic accent — red underline */
+  .em-accent {
+    font-style: italic;
+    font-weight: inherit;
+    text-decoration: underline;
+    text-decoration-color: #E5482A;
+    text-decoration-thickness: 4px;
+    text-underline-offset: 0.12em;
+    margin-right: 0.18em;
+    padding-right: 0.06em;
+  }
+
+  /* selection */
+  ::selection { background: #0E0E0C; color: #F6F4EE; }
+
+  /* anchor offset */
+  section[id] { scroll-margin-top: 80px; }
+
+  /* Top bar nav links */
+  .navlink { position: relative; }
+  .navlink::after { content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .3s; }
+  .navlink:hover::after { transform: scaleX(1); transform-origin: left; }
+
+  /* Reveal on scroll */
+  .reveal { opacity:0; transform: translateY(14px); transition: opacity .8s, transform .8s; }
+  .reveal.in { opacity:1; transform: none; }
+</style>
+</head>
+<body class="grain antialiased">
+
+<!-- ============== TOP BAR ============== -->
+<header class="fixed top-0 inset-x-0 z-40 backdrop-blur-sm bg-paper/85 border-b hairline">
+  <div class="max-w-[1320px] mx-auto px-6 lg:px-10 h-12 flex items-center justify-between text-[12px]">
+    <div class="flex items-center gap-3">
+      <span class="relative inline-block w-1.5 h-1.5 rounded-full bg-live pulse-dot"></span>
+      <span class="font-mono tracking-wider">LORENZO.TRICHARD</span>
+      <span class="hidden md:inline text-mute">/</span>
+      <span class="hidden md:inline text-mute">marketing-engineer.exe</span>
+    </div>
+    <nav class="hidden md:flex items-center gap-6 text-mute">
+      <a href="#impact" class="navlink">impact</a>
+      <a href="#work" class="navlink">work</a>
+      <a href="#ops" class="navlink">ops</a>
+      <a href="#manifesto" class="navlink">manifesto</a>
+      <a href="#connect" class="navlink">connect</a>
+    </nav>
+    <div class="flex items-center gap-4 text-mute">
+      <span class="hidden sm:inline tnum" id="clock">--:--:-- UTC</span>
+      <span class="inline-flex items-center gap-1.5 text-ink"><span class="w-1.5 h-1.5 rounded-full bg-live blink"></span> ONLINE</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============== HERO ============== -->
+<section class="pt-28 pb-16 lg:pt-36 lg:pb-24 border-b hairline relative overflow-hidden">
+  <div class="max-w-[1320px] mx-auto px-6 lg:px-10">
+
+    <!-- meta strip -->
+    <div class="flex items-center justify-between text-[11px] text-mute uppercase tracking-[.22em] mb-10">
+      <div class="flex items-center gap-6">
+        <span>FILE — 001 / portfolio</span>
+        <span class="hidden sm:inline">REV. 2026.05</span>
+      </div>
+      <div class="flex items-center gap-6">
+        <span class="hidden sm:inline">REMOTE · ANYWHERE</span>
+        <span>STATUS: SHIPPING</span>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-12 gap-10 lg:gap-8 items-end">
+      <div class="lg:col-span-8">
+        <div class="seclbl uppercase text-mute mb-6">// hero</div>
+
+        <h1 class="font-sans font-extrabold text-[48px] sm:text-[68px] lg:text-[92px] leading-[0.98] tracking-[-0.035em] text-ink">
+          I don&rsquo;t <span class="relative inline-block mr-3">
+            <span class="line-through decoration-live decoration-[4px]">advise</span>
+          </span>growth.<br/>
+          I <em class="em-accent">build</em> the agents<br/>
+          that run it.
+        </h1>
+
+        <p class="mt-10 max-w-[60ch] text-[15px] leading-[1.7] text-ink2">
+          I run a fleet of <span class="bg-ink text-paper px-1.5 py-0.5 mx-0.5">10 AI agents</span> handling outreach, content, CRM, competitor watch, and reporting — end&#8209;to&#8209;end. 7+ years operating growth across Web3, fintech, and AI. Multiple zero&#8209;to&#8209;traction launches: millions of users, hundreds of millions in volume, real receipts below.
+        </p>
+
+        <div class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 text-[12px] text-mute">
+          <span class="inline-flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-good"></span> 7+ yrs growth ops</span>
+          <span class="inline-flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-good"></span> Web3 · Fintech · AI</span>
+          <span class="inline-flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-good"></span> FR / EN bilingual</span>
+          <span class="inline-flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-live blink"></span> Currently building <a href="https://tryeverything.xyz" target="_blank" rel="noopener" class="underline-link text-ink">tryeverything.xyz ↗</a></span>
+        </div>
+      </div>
+
+      <!-- right column: ID card -->
+      <aside class="lg:col-span-4 lg:pl-8 lg:border-l hairline">
+        <div class="text-[11px] uppercase tracking-[.22em] text-mute mb-4">// operator card</div>
+        <div class="border hairline-strong p-5 bg-paper2/50">
+          <div class="flex items-start gap-4">
+            <div class="shrink-0 relative">
+              <div class="absolute -top-1.5 -left-1.5 text-[9px] text-mute tnum">+</div>
+              <div class="absolute -top-1.5 -right-1.5 text-[9px] text-mute tnum">+</div>
+              <div class="absolute -bottom-1.5 -left-1.5 text-[9px] text-mute tnum">+</div>
+              <div class="absolute -bottom-1.5 -right-1.5 text-[9px] text-mute tnum">+</div>
+              <img src="assets/lorenzo-duotone.png" alt="Lorenzo Trichard" class="w-[88px] h-[88px] object-cover border hairline-strong grayscale-0" />
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-start justify-between gap-2">
+                <div class="min-w-0">
+                  <div class="text-[11px] text-mute">NAME</div>
+                  <div class="font-sans font-bold text-[22px] leading-[1.1] mt-1 tracking-[-0.02em]">Lorenzo<br/>Trichard</div>
+                </div>
+                <div class="text-right shrink-0">
+                  <div class="text-[11px] text-mute">ID</div>
+                  <div class="text-sm tnum mt-1">MX-0247</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-5 grid grid-cols-2 gap-y-3 text-[12px]">
+            <div class="text-mute">ROLE</div><div>Marketing Engineer</div>
+            <div class="text-mute">A.K.A.</div><div>Growth Architect</div>
+            <div class="text-mute">FLEET</div><div>10 agents · live</div>
+            <div class="text-mute">UPTIME</div><div class="tnum" id="uptime">— d — h</div>
+            <div class="text-mute">MODE</div><div class="text-live">SHIPPING</div>
+          </div>
+          <!-- mini sparkline -->
+          <svg class="spark mt-5 w-full" viewBox="0 0 240 48" fill="none">
+            <path d="M0,38 L20,32 L36,36 L54,22 L72,28 L92,18 L112,24 L132,12 L154,18 L176,8 L198,14 L220,4 L240,10"
+                  stroke="#0E0E0C" stroke-width="1.25" />
+            <line x1="0" y1="47" x2="240" y2="47" stroke="#0E0E0C" stroke-opacity=".2"/>
+          </svg>
+          <div class="flex justify-between text-[10px] text-mute mt-1.5 tnum">
+            <span>2019</span><span>signal: trajectory</span><span>2026</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============== MARQUEE ============== -->
+<div class="border-b hairline overflow-hidden bg-ink text-paper">
+  <div class="marquee py-3 text-[12px] uppercase tracking-[.22em] whitespace-nowrap">
+    <!-- duplicated for loop -->
+    <div class="flex items-center gap-12 px-6">
+      <span>● Reveel · 500K users</span><span>●</span>
+      <span>Kaisar · $4M raised</span><span>●</span>
+      <span>Bloom · 100K signups in 3 weeks</span><span>●</span>
+      <span>KENDLE · agent-automated end-to-end</span><span>●</span>
+      <span>TryEverything · pre-launch · 10 spots</span><span>●</span>
+      <span>$285M total volume</span><span>●</span>
+      <span>3M+ users acquired</span><span>●</span>
+    </div>
+    <div class="flex items-center gap-12 px-6" aria-hidden="true">
+      <span>● Reveel · 500K users</span><span>●</span>
+      <span>Kaisar · $4M raised</span><span>●</span>
+      <span>Bloom · 100K signups in 3 weeks</span><span>●</span>
+      <span>KENDLE · agent-automated end-to-end</span><span>●</span>
+      <span>TryEverything · pre-launch · 10 spots</span><span>●</span>
+      <span>$285M total volume</span><span>●</span>
+      <span>3M+ users acquired</span><span>●</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============== KPI BAND ============== -->
+<section id="impact" class="border-b hairline">
+  <div class="max-w-[1320px] mx-auto px-6 lg:px-10 py-14 lg:py-20">
+    <div class="flex items-end justify-between mb-10">
+      <div>
+        <div class="seclbl uppercase text-mute mb-2">// 01 — cumulative impact</div>
+        <h2 class="font-sans font-extrabold text-4xl lg:text-[44px] leading-[1.05] tracking-[-0.03em]">Receipts. Not decks.</h2>
+      </div>
+      <div class="hidden md:block text-right text-[11px] text-mute uppercase tracking-[.22em]">
+        <div>Aggregated · 2019 → 2026</div>
+        <div class="mt-1">Source: shipped projects</div>
+      </div>
+    </div>
+
+    <div id="kpi-grid" class="grid grid-cols-2 lg:grid-cols-4 border-t border-l hairline-strong">
+      <!-- KPI tiles inserted by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ============== PORTFOLIO ============== -->
+<section id="work" class="border-b hairline">
+  <div class="max-w-[1320px] mx-auto px-6 lg:px-10 py-14 lg:py-20">
+
+    <div class="flex items-end justify-between mb-10">
+      <div>
+        <div class="seclbl uppercase text-mute mb-2">// 02 — selected work</div>
+        <h2 class="font-sans font-extrabold text-4xl lg:text-[44px] leading-[1.05] tracking-[-0.03em]">Five projects. Real numbers.</h2>
+      </div>
+      <div class="hidden md:flex items-center gap-2 text-[11px] uppercase tracking-[.22em] text-mute">
+        <span class="w-2 h-2 border hairline-strong"></span> shipped
+        <span class="w-2 h-2 bg-star ml-4"></span> featured
+      </div>
+    </div>
+
+    <div id="cards" class="grid md:grid-cols-2 gap-5"></div>
+  </div>
+</section>
+
+<!-- ============== OPERATIONS ============== -->
+<section id="ops" class="border-b hairline bg-paper2/50">
+  <div class="max-w-[1320px] mx-auto px-6 lg:px-10 py-14 lg:py-20">
+
+    <div class="flex items-end justify-between mb-10">
+      <div>
+        <div class="seclbl uppercase text-mute mb-2">// 03 — operations</div>
+        <h2 class="font-sans font-extrabold text-4xl lg:text-[44px] leading-[1.05] tracking-[-0.03em]">The fleet, running live.</h2>
+      </div>
+      <div class="hidden md:flex items-center gap-3 text-[11px] uppercase tracking-[.22em] text-mute">
+        <span class="inline-flex items-center gap-2 text-ink"><span class="w-1.5 h-1.5 rounded-full bg-live blink"></span> Live feed</span>
+        <span>·</span>
+        <span class="tnum">10 / 10 healthy</span>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-12 gap-6">
+
+      <!-- Activity feed -->
+      <div class="lg:col-span-7 border hairline-strong bg-paper">
+        <div class="flex items-center justify-between px-5 py-3 border-b hairline-strong text-[11px] uppercase tracking-[.22em]">
+          <div class="flex items-center gap-3">
+            <span class="w-2 h-2 rounded-full bg-live blink"></span>
+            <span>activity_feed.log</span>
+          </div>
+          <div class="text-mute tnum"><span id="evtcount">0</span> events</div>
+        </div>
+        <div id="feed" class="divide-y hairline text-[12.5px]">
+          <!-- JS -->
+        </div>
+        <div class="px-5 py-2.5 border-t hairline text-[11px] text-mute flex items-center justify-between">
+          <span>auto-refresh · every ~3s</span>
+          <span class="caret">tail -f</span>
+        </div>
+      </div>
+
+      <!-- Agents grid -->
+      <div class="lg:col-span-5 border hairline-strong bg-paper">
+        <div class="flex items-center justify-between px-5 py-3 border-b hairline-strong text-[11px] uppercase tracking-[.22em]">
+          <span>fleet_manifest.yaml</span>
+          <span class="text-mute">10 agents</span>
+        </div>
+        <ul id="agents" class="divide-y hairline">
+          <!-- JS -->
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============== MANIFESTO ============== -->
+<section id="manifesto" class="border-b hairline">
+  <div class="max-w-[1100px] mx-auto px-6 lg:px-10 py-24 lg:py-36 text-center reveal">
+    <div class="seclbl uppercase text-mute mb-8">// 04 — manifesto</div>
+    <p class="font-sans font-extrabold text-[32px] sm:text-[42px] lg:text-[56px] leading-[1.1] tracking-[-0.03em] max-w-[20ch] sm:max-w-none mx-auto">
+      The future isn&rsquo;t teams<br/>running campaigns.<br/>
+      It&rsquo;s <em class="em-accent">one operator</em> running<br/>fleets of agents that run them.
+    </p>
+    <div class="mt-12 inline-flex items-center gap-3 text-[11px] uppercase tracking-[.22em] text-mute">
+      <span class="w-10 h-px bg-ink/40"></span>
+      <span>Marketing Engineer Manifesto</span>
+      <span class="w-10 h-px bg-ink/40"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============== CONNECT ============== -->
+<section id="connect" class="border-b hairline">
+  <div class="max-w-[1320px] mx-auto px-6 lg:px-10 py-14 lg:py-20">
+
+    <div class="flex items-end justify-between mb-10 flex-wrap gap-4">
+      <div>
+        <div class="seclbl uppercase text-mute mb-2">// 05 — connect</div>
+        <h2 class="font-sans font-extrabold text-4xl lg:text-[44px] leading-[1.05] tracking-[-0.03em]">Open to:</h2>
+        <div class="mt-3 text-[14px] text-ink2">
+          Head of Growth <span class="text-mute">·</span> Marketing Engineer <span class="text-mute">·</span> Fractional CMO
+        </div>
+      </div>
+      <div class="text-[11px] uppercase tracking-[.22em] text-mute text-right">
+        <div>Response time</div>
+        <div class="text-ink mt-1 tnum">&lt; 12h · usually faster</div>
+      </div>
+    </div>
+
+    <div id="connect-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 border-t border-l hairline-strong">
+      <!-- JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<footer class="py-10">
+  <div class="max-w-[1320px] mx-auto px-6 lg:px-10 flex flex-wrap items-center justify-between gap-4 text-[12px] text-mute">
+    <div class="flex items-center gap-3">
+      <span class="text-base">🦀</span>
+      <span>Marketing Engineer / Growth Architect</span>
+    </div>
+    <div class="flex items-center gap-6">
+      <span class="tnum">© 2026</span>
+      <span>Built end&#8209;to&#8209;end by an operator. Not a team.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============== APP JS ============== -->
+<script>
+/* ---------- Clock + uptime ---------- */
+(function clock(){
+  const el = document.getElementById('clock');
+  const ut = document.getElementById('uptime');
+  const start = new Date('2019-04-01T00:00:00Z').getTime();
+  function tick(){
+    const d = new Date();
+    const hh = String(d.getUTCHours()).padStart(2,'0');
+    const mm = String(d.getUTCMinutes()).padStart(2,'0');
+    const ss = String(d.getUTCSeconds()).padStart(2,'0');
+    el.textContent = `${hh}:${mm}:${ss} UTC`;
+    const diff = Date.now() - start;
+    const days = Math.floor(diff/86400000);
+    const hrs  = Math.floor((diff%86400000)/3600000);
+    ut.textContent = `${days.toLocaleString()} d ${hrs} h`;
+  }
+  tick(); setInterval(tick,1000);
+})();
+
+/* ---------- KPIs ---------- */
+const KPIS = [
+  { id:'k1', label:'Total users acquired',     value:3000000, prefix:'', suffix:'+', display:v => v >= 1e6 ? (v/1e6).toFixed(0)+'M' : Math.round(v).toLocaleString(), final:'3M+', sub:'across 5 launches' },
+  { id:'k2', label:'Volume generated',          value:285000000, prefix:'$', suffix:'', display:v => '$'+(v/1e6).toFixed(0)+'M', final:'$285M', sub:'transacted on shipped products' },
+  { id:'k3', label:'Capital raised by clients', value:5600000, prefix:'$', suffix:'', display:v => '$'+(v/1e6).toFixed(1)+'M', final:'$5.6M', sub:'seed → series A rounds' },
+  { id:'k4', label:'Projects scaled',           value:22, prefix:'', suffix:'+', display:v => Math.round(v).toString(), final:'22+', sub:'shipped 0→1, 1→N' },
+];
+
+(function renderKPIs(){
+  const grid = document.getElementById('kpi-grid');
+  grid.innerHTML = KPIS.map((k,i) => `
+    <div class="kpi p-7 lg:p-8 border-r border-b hairline-strong relative flex flex-col" data-id="${k.id}" data-final="${k.final}" data-target="${k.value}">
+      <div class="flex items-start justify-between gap-3 min-h-[34px]">
+        <div class="text-[11px] uppercase tracking-[.22em] text-mute leading-[1.4]">${String(i+1).padStart(2,'0')} / ${k.label}</div>
+        <div class="text-[10px] text-mute tnum shrink-0">live</div>
+      </div>
+      <div class="font-sans font-extrabold text-[56px] lg:text-[80px] leading-[1] tnum mt-7 counter-line inline-block self-start text-ink" id="${k.id}" style="letter-spacing:-0.045em">0</div>
+      <div class="mt-3 text-[12px] text-mute">${k.sub}</div>
+      <!-- mini bar chart -->
+      <div class="mt-5 flex items-end gap-1 h-8">
+        ${Array.from({length:14}).map((_,j)=>{
+          const h = 18 + Math.round(Math.sin((j+i*3)*0.7)*16 + Math.random()*22);
+          return `<span class="bar inline-block w-1.5 bg-ink/80" style="height:${Math.max(6,Math.min(34,h))}px; transition-delay:${j*60}ms"></span>`;
+        }).join('')}
+      </div>
+    </div>
+  `).join('');
+})();
+
+function animateCount(el, target, finalText, dur=1800){
+  const start = performance.now();
+  function frame(t){
+    const p = Math.min(1, (t-start)/dur);
+    const eased = 1 - Math.pow(1-p, 3);
+    const v = target * eased;
+    const item = KPIS.find(x => x.id === el.id);
+    el.textContent = item.display(v);
+    if (p < 1) requestAnimationFrame(frame);
+    else el.textContent = finalText;
+  }
+  requestAnimationFrame(frame);
+}
+
+/* ---------- Portfolio cards ---------- */
+const PROJECTS = [
+  {
+    name:'Reveel', star:false,
+    href:'https://reveel.id/',
+    type:'AI Agent Payment System · Stablecoin Payment ID',
+    channels:['Influencer','Community Growth','Paid Ads','KOL'],
+    metrics:[
+      ['users acquired','500K+'],
+      ['volume','$250M'],
+      ['locked at launch','$26M / 3 min'],
+      ['ad spend → impressions','$2,800 → 100M'],
+    ],
+    accent:'good',
+  },
+  {
+    name:'Kaisar', star:false,
+    href:'https://kaisar.io/',
+    type:'Decentralized GPU · DePIN protocol',
+    channels:['Paid Ads','Growth Loops','Partnerships','Community'],
+    metrics:[
+      ['users','1.2M'],
+      ['extension downloads','300K'],
+      ['raised','$4M'],
+      ['scaled in','< 8 months'],
+    ],
+    accent:'good',
+  },
+  {
+    name:'Bloom', star:false,
+    href:'https://www.bloom.social/',
+    type:'Social layer for onchain finance · Lightspeed-backed',
+    channels:['Influencer','Community Growth','Twitter','Waitlist'],
+    metrics:[
+      ['verified signups','100K / 3 wks'],
+      ['twitter followers','20K'],
+      ['raised','$1.6M'],
+      ['stage','seed'],
+    ],
+    accent:'good',
+  },
+  {
+    name:'KENDLE', star:false, role:'co-founder',
+    href:'https://kendle.xyz/',
+    type:'Crypto trading volume platform',
+    channels:['Influencer','Community','Partnerships'],
+    metrics:[
+      ['real traders','1,200+'],
+      ['volume','$35M+'],
+      ['ops model','agent-automated · end-to-end'],
+      ['scope','outreach · code · content · campaigns'],
+    ],
+    accent:'good',
+  },
+  {
+    name:'TryEverything', star:true,
+    tagline:'Deploy AI Agent Infrastructure in seconds',
+    type:'Built on OpenClaw · Personal project',
+    note:'Built solo as a personal project · Hetzner VPS, deploy in minutes',
+    channels:['Browser','Whisper','LinkedIn outreach','Content','Self-Learning','Human-in-the-loop','GStack','Karpathy autoresearch'],
+    metrics:[
+      ['status','Pre-launch'],
+      ['built on','Hetzner VPS · minutes'],
+      ['deploy time','< 5 min'],
+      ['link','tryeverything.xyz ↗'],
+    ],
+    href:'https://tryeverything.xyz',
+    accent:'star',
+  },
+];
+
+(function renderCards(){
+  const wrap = document.getElementById('cards');
+  wrap.innerHTML = PROJECTS.map((p,idx) => {
+    const isStar = p.star;
+    const cls = isStar
+      ? 'card star-card md:col-span-2 p-7 lg:p-9 relative'
+      : 'card border hairline-strong bg-paper p-6 lg:p-7 relative';
+    const num = String(idx+1).padStart(2,'0');
+    const channels = p.channels.map(c=>`<span class="inline-block border hairline px-2 py-0.5 text-[11px] uppercase tracking-[.14em] text-ink2">${c}</span>`).join('');
+    const metrics = p.metrics.map(([k,v])=>`
+      <div class="flex items-baseline justify-between gap-3 py-2 border-b hairline last:border-b-0">
+        <span class="text-[11px] uppercase tracking-[.18em] text-mute">${k}</span>
+        <span class="font-sans font-bold text-[18px] lg:text-[20px] tnum text-ink tracking-[-0.01em]">${v}</span>
+      </div>
+    `).join('');
+
+    const wrapTag = (inner) => p.href
+      ? `<a href="${p.href}" target="_blank" rel="noopener" class="${cls} block">${inner}</a>`
+      : `<article class="${cls}">${inner}</article>`;
+
+    return wrapTag(`
+      ${isStar ? `
+        <div class="absolute -top-3 left-6 inline-flex items-center gap-2 bg-ink text-paper px-2.5 py-1 text-[10px] uppercase tracking-[.22em]">
+          <span>★ Featured · current build</span>
+        </div>` : ''
+      }
+      <div class="flex items-start justify-between">
+        <div>
+          <div class="text-[11px] uppercase tracking-[.22em] text-mute">${num} ${isStar ? '· flagship' : ''}</div>
+          <h3 class="font-sans font-extrabold text-4xl lg:text-[44px] mt-2 leading-[1] tracking-[-0.03em]">${p.name}${p.role ? `<span class="ml-3 align-middle text-[11px] tracking-[.22em] uppercase text-mute font-mono font-medium">${p.role}</span>`:''}</h3>
+          ${p.tagline ? `<div class="font-sans italic font-medium text-[17px] mt-3 text-ink2">“${p.tagline}”</div>` : ''}
+          <div class="text-[12.5px] mt-2 text-ink2">${p.type}</div>
+        </div>
+        <div class="card-arrow text-2xl leading-none ${isStar ? 'text-ink' : 'text-ink/70'}">↗</div>
+      </div>
+
+      <div class="mt-5 flex flex-wrap gap-1.5">${isStar ? '' : channels}</div>
+
+      <div class="mt-6 grid ${isStar ? 'sm:grid-cols-2 gap-x-10' : ''}">
+        <div>
+          ${metrics}
+        </div>
+        ${isStar ? `
+          <div class="mt-4 sm:mt-0 sm:pl-8 sm:border-l hairline">
+            <div class="text-[11px] uppercase tracking-[.22em] text-mute">specialized agents</div>
+            <ul class="mt-3 grid grid-cols-2 gap-y-1.5 text-[12.5px]">
+              ${p.channels.map(c=>`<li class="flex items-center gap-2"><span class="w-1 h-1 bg-ink"></span>${c}</li>`).join('')}
+            </ul>
+            <div class="mt-5 inline-flex items-center gap-2 text-[12px] border-t border-ink pt-3">
+              <span class="w-1.5 h-1.5 bg-live rounded-full blink"></span>
+              <span class="uppercase tracking-[.18em]">Personal project · built solo, end-to-end</span>
+            </div>
+          </div>
+        ` : ''}
+      </div>
+    `);
+  }).join('');
+})();
+
+/* ---------- Activity feed ---------- */
+const FEED_TEMPLATES = [
+  ['SDR',        'enriched {n} leads from Apollo'],
+  ['Outreach',   'sent {n} personalized DMs'],
+  ['Outreach',   'queued {n} LinkedIn follow-ups'],
+  ['Content',    'drafted {n} posts from brief'],
+  ['Content',    'rewrote {n} hooks · A/B variants'],
+  ['Email',      'shipped sequence · {n} recipients'],
+  ['Email',      'paused under-performing variant -3.1% OR'],
+  ['Competitor', 'detected pricing change · 2 vendors'],
+  ['Competitor', 'flagged new launch from competitor #4'],
+  ['CRM',        'merged {n} duplicate contacts'],
+  ['CRM',        'moved {n} deals to stage 3'],
+  ['Strategy',   'replanned Q2 roadmap · 4 bets'],
+  ['Recruiter',  'surfaced {n} candidates · Reddit + X'],
+  ['Token',      'scored {n} tokens · 3 above threshold'],
+  ['Operator',   'QA pass on Outreach Agent · all green'],
+  ['Operator',   'paused agent #7 · safety check'],
+  ['SDR',        'verified {n} emails · 92% deliverable'],
+  ['Content',    'scheduled {n} threads for tomorrow'],
+];
+
+const FEED_NUMS = [3,5,7,9,12,17,23,31,42,47,58,73,118];
+
+function feedItem(){
+  const t = FEED_TEMPLATES[Math.floor(Math.random()*FEED_TEMPLATES.length)];
+  const n = FEED_NUMS[Math.floor(Math.random()*FEED_NUMS.length)];
+  return { agent: t[0], text: t[1].replace('{n}', n), at: Date.now() };
+}
+
+const feedState = {
+  items: [],
+  count: 0,
+  rel(ts){
+    const s = Math.max(1, Math.floor((Date.now()-ts)/1000));
+    if (s < 60) return s+'s ago';
+    const m = Math.floor(s/60); if (m < 60) return m+'m ago';
+    const h = Math.floor(m/60); return h+'h ago';
+  },
+  render(){
+    const el = document.getElementById('feed');
+    el.innerHTML = this.items.slice(0,10).map((it,i)=>`
+      <div class="feed-row flex items-start gap-4 px-5 py-3 ${i===0?'':''}">
+        <div class="shrink-0 mt-1.5 w-1.5 h-1.5 rounded-full ${i===0?'bg-live':'bg-ink/40'}"></div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-baseline gap-2 flex-wrap">
+            <span class="text-[11px] uppercase tracking-[.18em] text-ink font-semibold">${it.agent} Agent</span>
+            <span class="text-ink2">${it.text}</span>
+          </div>
+        </div>
+        <div class="shrink-0 text-[11px] tnum text-mute" data-ts="${it.at}">${this.rel(it.at)}</div>
+      </div>
+    `).join('');
+    document.getElementById('evtcount').textContent = this.count.toLocaleString();
+  },
+  push(){
+    this.items.unshift(feedItem());
+    if (this.items.length > 10) this.items.length = 10;
+    this.count++;
+    this.render();
+  },
+  tickRel(){
+    document.querySelectorAll('#feed [data-ts]').forEach(n=>{
+      n.textContent = this.rel(parseInt(n.dataset.ts,10));
+    });
+  }
+};
+// seed
+(function seedFeed(){
+  const now = Date.now();
+  const seeds = [
+    {agent:'Outreach',  text:'sent 23 personalized DMs',                    at: now - 12_000},
+    {agent:'SDR',       text:'enriched 47 leads from Apollo',               at: now - 38_000},
+    {agent:'Competitor',text:'detected pricing change · 2 vendors',         at: now - 64_000},
+    {agent:'Content',   text:'drafted 3 posts from brief',                  at: now - 92_000},
+    {agent:'CRM',       text:'moved 7 deals to stage 3',                    at: now - 121_000},
+    {agent:'Email',     text:'shipped sequence · 312 recipients',           at: now - 168_000},
+    {agent:'Token',     text:'scored 58 tokens · 3 above threshold',        at: now - 214_000},
+    {agent:'Recruiter', text:'surfaced 12 candidates · Reddit + X',         at: now - 281_000},
+  ];
+  feedState.items = seeds;
+  feedState.count = 1247;
+  feedState.render();
+})();
+setInterval(()=>feedState.push(), 3400);
+setInterval(()=>feedState.tickRel(), 1000);
+
+/* ---------- Agents ---------- */
+const AGENTS = [
+  ['SDR',        'lead research',      'A1', '#3D4A2A'],
+  ['Outreach',   'personalized DM',    'A2', '#3D4A2A'],
+  ['Content',    'posts / threads',    'A3', '#3D4A2A'],
+  ['Email',      'sequences',          'A4', '#3D4A2A'],
+  ['Competitor', 'weekly scrape',      'A5', '#3D4A2A'],
+  ['CRM',        'pipeline ops',       'A6', '#3D4A2A'],
+  ['Strategy',   'planning',           'A7', '#3D4A2A'],
+  ['Recruiter',  'Reddit + X',         'A8', '#3D4A2A'],
+  ['Token',      'market scoring',     'A9', '#3D4A2A'],
+  ['Operator',   'QA / safety',        'A10','#E5482A'],
+];
+(function renderAgents(){
+  const list = document.getElementById('agents');
+  list.innerHTML = AGENTS.map(([n,r,id,c])=>`
+    <li class="flex items-center gap-4 px-5 py-3 hover:bg-paper2 transition-colors">
+      <div class="w-7 h-7 border hairline-strong flex items-center justify-center text-[10px] tnum">${id}</div>
+      <div class="flex-1">
+        <div class="text-[13px] font-semibold">${n} Agent</div>
+        <div class="text-[11.5px] text-mute">${r}</div>
+      </div>
+      <div class="flex items-center gap-2 text-[10px] uppercase tracking-[.18em]">
+        <span class="w-1.5 h-1.5 rounded-full" style="background:${c}"></span>
+        <span class="text-mute">healthy</span>
+      </div>
+    </li>
+  `).join('');
+})();
+
+/* ---------- Connect tiles ---------- */
+const CONTACTS = [
+  { lbl:'Email',              val:'lorenzo.trichard@gmail.com',  href:'mailto:lorenzo.trichard@gmail.com',     hint:'fastest path' },
+  { lbl:'Twitter / X',        val:'@Moonrock_02',                 href:'https://x.com/Moonrock_02',             hint:'public posting' },
+  { lbl:'Telegram',           val:'@LorenzoGC1',                  href:'https://t.me/LorenzoGC1',               hint:'direct + fast' },
+  { lbl:'Currently building', val:'tryeverything.xyz',            href:'https://tryeverything.xyz',             hint:'live build' },
+];
+(function renderContacts(){
+  const wrap = document.getElementById('connect-grid');
+  wrap.innerHTML = CONTACTS.map((c,i)=>`
+    <a href="${c.href}" target="_blank" rel="noopener" class="tile group p-7 lg:p-8 border-r border-b hairline-strong relative block hover:bg-paper2 transition-colors">
+      <div class="flex items-start justify-between">
+        <div class="text-[11px] uppercase tracking-[.22em] text-mute">${String(i+1).padStart(2,'0')} / ${c.lbl}</div>
+        <div class="tile-arrow text-xl leading-none">↗</div>
+      </div>
+      <div class="font-sans font-bold text-[22px] lg:text-[26px] mt-6 leading-[1.15] break-words tracking-[-0.02em]">${c.val}</div>
+      <div class="mt-3 text-[11px] text-mute uppercase tracking-[.18em]">${c.hint}</div>
+    </a>
+  `).join('');
+})();
+
+/* ---------- Reveal + counter triggers ---------- */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if (!e.isIntersecting) return;
+    const t = e.target;
+    if (t.classList.contains('kpi')){
+      const id = t.dataset.id;
+      const target = parseFloat(t.dataset.target);
+      const finalText = t.dataset.final;
+      const el = document.getElementById(id);
+      if (!el.dataset.done){
+        el.dataset.done = '1';
+        el.classList.add('in');
+        animateCount(el, target, finalText, 1900);
+      }
+      t.querySelectorAll('.bar').forEach(b=>b.classList.add('in'));
+    }
+    t.classList.add('in');
+    io.unobserve(t);
+  });
+},{ threshold: .25 });
+
+document.querySelectorAll('.kpi, .reveal').forEach(el=>io.observe(el));
+
+/* smooth scroll for nav */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click', e=>{
+    const id = a.getAttribute('href').slice(1);
+    const t = document.getElementById(id);
+    if (!t) return;
+    e.preventDefault();
+    window.scrollTo({ top: t.offsetTop - 60, behavior: 'smooth' });
+  });
+});
+</script>
+
+</body>
+</html>
