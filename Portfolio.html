@@ -145,6 +145,49 @@
   .bar { transform-origin: bottom; transform: scaleY(0); transition: transform 1.2s cubic-bezier(.2,.8,.2,1); }
   .bar.in { transform: scaleY(1); }
 
+  .operator-card { position: relative; overflow: hidden; }
+  .operator-card::before {
+    content:""; position:absolute; inset:0 auto auto 0; width:100%; height:2px;
+    background: linear-gradient(90deg, transparent, #5CC974, transparent);
+    animation: scanline 3.8s ease-in-out infinite;
+  }
+
+  .health-strip {
+    position: relative; overflow: hidden;
+    background: linear-gradient(90deg, rgba(92,201,116,.12), rgba(92,201,116,.04), rgba(92,201,116,.12));
+  }
+  .health-strip::after {
+    content:""; position:absolute; top:0; bottom:0; left:-35%; width:30%;
+    background: linear-gradient(90deg, transparent, rgba(92,201,116,.34), transparent);
+    animation: sweep 4.6s ease-in-out infinite;
+  }
+
+  .scan-panel { position: relative; overflow: hidden; }
+  .scan-panel::after {
+    content:""; position:absolute; left:0; right:0; top:-30%; height:28%;
+    background: linear-gradient(180deg, transparent, rgba(92,201,116,.12), transparent);
+    animation: panelscan 5.2s linear infinite;
+    pointer-events:none;
+  }
+
+  .agent-row { position: relative; }
+  .agent-row::before {
+    content:""; position:absolute; left:0; top:0; bottom:0; width:2px;
+    background:#5CC974; opacity:0; transform: scaleY(.3);
+    transition: opacity .25s ease, transform .25s ease;
+  }
+  .agent-row:hover::before { opacity:1; transform: scaleY(1); }
+  .status-meter span {
+    display:inline-block; width:3px; height:10px; background:#5CC974;
+    animation: meter 1.8s ease-in-out infinite;
+  }
+  .status-meter span:nth-child(2){ animation-delay:.16s; }
+  .status-meter span:nth-child(3){ animation-delay:.32s; }
+  @keyframes sweep { 0%, 18% { transform: translateX(0); } 60%, 100% { transform: translateX(460%); } }
+  @keyframes panelscan { from { transform: translateY(0); } to { transform: translateY(470%); } }
+  @keyframes scanline { 0%,100% { opacity:.35; transform: translateX(-45%); } 50% { opacity:1; transform: translateX(45%); } }
+  @keyframes meter { 0%,100% { opacity:.35; transform: scaleY(.45); } 50% { opacity:1; transform: scaleY(1); } }
+
   /* Caret cursor */
   .caret::after{ content:""; display:inline-block; width:.55em; height:1em; background:#0E0E0C; vertical-align:-2px; margin-left:.18em; animation: blink 1s steps(2,end) infinite; }
 
@@ -243,7 +286,7 @@
       <!-- right column: ID card -->
       <aside class="lg:col-span-4 lg:pl-8 lg:border-l hairline">
         <div class="text-[11px] uppercase tracking-[.22em] text-mute mb-4">// operator card</div>
-        <div class="border hairline-strong p-5 bg-paper2/50">
+        <div class="operator-card border hairline-strong p-5 bg-paper2/50">
           <div class="flex items-start gap-4">
             <div class="shrink-0 relative">
               <div class="absolute -top-1.5 -left-1.5 text-[9px] text-mute tnum">+</div>
@@ -367,6 +410,18 @@
       </div>
     </div>
 
+    <div class="health-strip border hairline-strong px-5 py-3 mb-6 flex flex-wrap items-center justify-between gap-3 text-[11px] uppercase tracking-[.18em]">
+      <div class="flex items-center gap-3 text-ink">
+        <span class="w-1.5 h-1.5 rounded-full bg-live blink"></span>
+        <span>agent health monitor</span>
+      </div>
+      <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-mute tnum">
+        <span>uptime 99.9%</span>
+        <span>latency 128ms</span>
+        <span>queue clear</span>
+      </div>
+    </div>
+
     <div class="grid lg:grid-cols-12 gap-6">
 
       <!-- Activity feed -->
@@ -388,7 +443,7 @@
       </div>
 
       <!-- Agents grid -->
-      <div class="lg:col-span-5 border hairline-strong bg-paper">
+      <div class="scan-panel lg:col-span-5 border hairline-strong bg-paper">
         <div class="flex items-center justify-between px-5 py-3 border-b hairline-strong text-[11px] uppercase tracking-[.22em]">
           <span>fleet_manifest.yaml</span>
           <span class="text-mute">10 agents</span>
@@ -658,7 +713,7 @@ const FEED_TEMPLATES = [
   ['Content',    'drafted {n} posts from brief'],
   ['Content',    'rewrote {n} hooks · A/B variants'],
   ['Email',      'shipped sequence · {n} recipients'],
-  ['Email',      'paused under-performing variant -3.1% OR'],
+  ['Email',      'optimized variant · +3.1% open rate'],
   ['Competitor', 'detected pricing change · 2 vendors'],
   ['Competitor', 'flagged new launch from competitor #4'],
   ['CRM',        'merged {n} duplicate contacts'],
@@ -667,7 +722,7 @@ const FEED_TEMPLATES = [
   ['Recruiter',  'surfaced {n} candidates · Reddit + X'],
   ['Token',      'scored {n} tokens · 3 above threshold'],
   ['Operator',   'QA pass on Outreach Agent · all green'],
-  ['Operator',   'paused agent #7 · safety check'],
+  ['Operator',   'safety check passed · agents nominal'],
   ['SDR',        'verified {n} emails · 92% deliverable'],
   ['Content',    'scheduled {n} threads for tomorrow'],
 ];
@@ -753,13 +808,14 @@ const AGENTS = [
 (function renderAgents(){
   const list = document.getElementById('agents');
   list.innerHTML = AGENTS.map(([n,r,id,c])=>`
-    <li class="flex items-center gap-4 px-5 py-3 hover:bg-paper2 transition-colors">
+    <li class="agent-row flex items-center gap-4 px-5 py-3 hover:bg-paper2 transition-colors">
       <div class="w-7 h-7 border hairline-strong flex items-center justify-center text-[10px] tnum">${id}</div>
       <div class="flex-1">
         <div class="text-[13px] font-semibold">${n} Agent</div>
         <div class="text-[11.5px] text-mute">${r}</div>
       </div>
-      <div class="flex items-center gap-2 text-[10px] uppercase tracking-[.18em]">
+      <div class="flex items-center gap-3 text-[10px] uppercase tracking-[.18em]">
+        <span class="status-meter flex items-end gap-0.5" aria-hidden="true"><span></span><span></span><span></span></span>
         <span class="w-1.5 h-1.5 rounded-full" style="background:${c}"></span>
         <span class="text-mute">healthy</span>
       </div>
