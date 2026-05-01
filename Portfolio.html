@@ -375,7 +375,7 @@
     <div class="flex items-end justify-between mb-10">
       <div>
         <div class="seclbl uppercase text-mute mb-2">// 01 — cumulative impact</div>
-        <h2 class="font-sans font-extrabold text-4xl lg:text-[44px] leading-[1.05] tracking-[-0.03em]">Growth proof from shipped projects.</h2>
+        <h2 class="font-sans font-extrabold text-4xl lg:text-[44px] leading-[1.05] tracking-[-0.03em]">Proof of growth systems I built and scaled.</h2>
       </div>
       <div class="hidden md:block text-right text-[11px] text-mute uppercase tracking-[.22em]">
         <div>Aggregated · 2019 → 2026</div>
@@ -433,6 +433,19 @@
         <span>uptime 99.9%</span>
         <span>latency 128ms</span>
         <span>queue clear</span>
+      </div>
+    </div>
+
+    <div class="border hairline-strong bg-paper px-5 py-4 mb-6 grid lg:grid-cols-12 gap-4 items-center">
+      <div class="lg:col-span-3">
+        <div class="text-[11px] uppercase tracking-[.22em] text-mute">first 90 days</div>
+        <div class="font-sans font-extrabold text-[24px] leading-[1.05] tracking-[-0.03em] mt-1">Portfolio growth operating system</div>
+      </div>
+      <div class="lg:col-span-9 grid sm:grid-cols-4 gap-3 text-[12px]">
+        <div class="border-l-2 border-live pl-3"><span class="block text-mute uppercase tracking-[.16em] text-[10px]">01</span>Map 8 accounts end-to-end</div>
+        <div class="border-l-2 border-live pl-3"><span class="block text-mute uppercase tracking-[.16em] text-[10px]">02</span>Define team, budget, tools</div>
+        <div class="border-l-2 border-live pl-3"><span class="block text-mute uppercase tracking-[.16em] text-[10px]">03</span>Launch organic campaigns</div>
+        <div class="border-l-2 border-live pl-3"><span class="block text-mute uppercase tracking-[.16em] text-[10px]">04</span>Automate what scales</div>
       </div>
     </div>
 
@@ -721,24 +734,22 @@ const PROJECTS = [
 
 /* ---------- Activity feed ---------- */
 const FEED_TEMPLATES = [
-  ['SDR',        'enriched {n} leads from Apollo'],
-  ['Outreach',   'sent {n} personalized DMs'],
-  ['Outreach',   'queued {n} LinkedIn follow-ups'],
-  ['Content',    'drafted {n} posts from brief'],
-  ['Content',    'rewrote {n} hooks · A/B variants'],
-  ['Email',      'shipped sequence · {n} recipients'],
-  ['Email',      'optimized variant · +3.1% open rate'],
-  ['Competitor', 'detected pricing change · 2 vendors'],
-  ['Competitor', 'flagged new launch from competitor #4'],
-  ['CRM',        'merged {n} duplicate contacts'],
-  ['CRM',        'moved {n} deals to stage 3'],
-  ['Strategy',   'replanned Q2 roadmap · 4 bets'],
-  ['Recruiter',  'surfaced {n} candidates · Reddit + X'],
-  ['Token',      'scored {n} tokens · 3 above threshold'],
-  ['Operator',   'QA pass on Outreach Agent · all green'],
-  ['Operator',   'safety check passed · agents nominal'],
-  ['SDR',        'verified {n} emails · 92% deliverable'],
-  ['Content',    'scheduled {n} threads for tomorrow'],
+  ['Account Ops', 'mapped {n} portfolio account blockers'],
+  ['Affiliate',   'qualified {n} affiliate partners'],
+  ['Content',     'drafted {n} organic campaign angles'],
+  ['Content',     'rewrote {n} hooks · A/B variants'],
+  ['Email',       'shipped sequence · {n} recipients'],
+  ['Email',       'optimized variant · +3.1% open rate'],
+  ['Market Intel','detected pricing change · 2 vendors'],
+  ['Market Intel','flagged new launch from competitor #4'],
+  ['CRM',         'merged {n} duplicate contacts'],
+  ['CRM',         'moved {n} portfolio deals to stage 3'],
+  ['Strategy',    'replanned account roadmap · 4 bets'],
+  ['Automation',  'scored {n} tasks for manual vs agentic'],
+  ['Operator',    'QA pass on Outreach Agent · all green'],
+  ['Operator',    'safety check passed · agents nominal'],
+  ['SDR',         'verified {n} emails · 92% deliverable'],
+  ['Content',     'scheduled {n} organic posts for tomorrow'],
 ];
 
 const FEED_NUMS = [3,5,7,9,12,17,23,31,42,47,58,73,118];
@@ -790,14 +801,14 @@ const feedState = {
 (function seedFeed(){
   const now = Date.now();
   const seeds = [
-    {agent:'Outreach',  text:'sent 23 personalized DMs',                    at: now - 12_000},
-    {agent:'SDR',       text:'enriched 47 leads from Apollo',               at: now - 38_000},
-    {agent:'Competitor',text:'detected pricing change · 2 vendors',         at: now - 64_000},
-    {agent:'Content',   text:'drafted 3 posts from brief',                  at: now - 92_000},
-    {agent:'CRM',       text:'moved 7 deals to stage 3',                    at: now - 121_000},
-    {agent:'Email',     text:'shipped sequence · 312 recipients',           at: now - 168_000},
-    {agent:'Token',     text:'scored 58 tokens · 3 above threshold',        at: now - 214_000},
-    {agent:'Recruiter', text:'surfaced 12 candidates · Reddit + X',         at: now - 281_000},
+    {agent:'Account Ops', text:'mapped 8 portfolio accounts',               at: now - 12_000},
+    {agent:'Affiliate',   text:'qualified 47 affiliate partners',           at: now - 38_000},
+    {agent:'Market Intel',text:'detected pricing change · 2 vendors',       at: now - 64_000},
+    {agent:'Content',     text:'drafted 3 organic campaign angles',         at: now - 92_000},
+    {agent:'CRM',         text:'moved 7 portfolio deals to stage 3',        at: now - 121_000},
+    {agent:'Email',       text:'shipped sequence · 312 recipients',         at: now - 168_000},
+    {agent:'Automation',  text:'scored 58 tasks for manual vs agentic',     at: now - 214_000},
+    {agent:'Strategy',    text:'resource model updated · team/tools/budget',at: now - 281_000},
   ];
   feedState.items = seeds;
   feedState.count = 1247;
@@ -808,15 +819,15 @@ setInterval(()=>feedState.tickRel(), 1000);
 
 /* ---------- Agents ---------- */
 const AGENTS = [
-  ['SDR',        'lead research',      'A1', '#5CC974'],
-  ['Outreach',   'personalized DM',    'A2', '#5CC974'],
-  ['Content',    'posts / threads',    'A3', '#5CC974'],
+  ['Account Ops','8-account map',      'A1', '#5CC974'],
+  ['Affiliate',  'partner pipeline',   'A2', '#5CC974'],
+  ['Content',    'organic campaigns',  'A3', '#5CC974'],
   ['Email',      'sequences',          'A4', '#5CC974'],
-  ['Competitor', 'weekly scrape',      'A5', '#5CC974'],
+  ['Market Intel','weekly scrape',     'A5', '#5CC974'],
   ['CRM',        'pipeline ops',       'A6', '#5CC974'],
-  ['Strategy',   'planning',           'A7', '#5CC974'],
-  ['Recruiter',  'Reddit + X',         'A8', '#5CC974'],
-  ['Token',      'market scoring',     'A9', '#5CC974'],
+  ['Strategy',   'resource model',     'A7', '#5CC974'],
+  ['Automation', 'agentic workflows',  'A8', '#5CC974'],
+  ['Engineering','scale roadmap',      'A9', '#5CC974'],
   ['Operator',   'QA / safety',        'A10','#5CC974'],
 ];
 (function renderAgents(){
