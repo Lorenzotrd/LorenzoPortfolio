@@ -137,6 +137,20 @@
 
   .underline-link { background-image: linear-gradient(currentColor,currentColor); background-size: 100% 1px; background-repeat: no-repeat; background-position: 0 100%; }
 
+  .agent-pill {
+    display: inline-flex;
+    align-items: center;
+    color: #5CC974;
+    background: #EBFEF3;
+    border-radius: 0.7em;
+    padding: 0.02em 0.34em 0.1em;
+    margin: 0 0.12em;
+    font-weight: 800;
+    font-style: italic;
+    letter-spacing: -0.02em;
+    box-shadow: inset 0 0 0 1px rgba(92,201,116,.16);
+  }
+
   /* Sparkline svg */
   .spark path { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: dash 2.4s ease forwards; }
   @keyframes dash { to { stroke-dashoffset: 0 } }
@@ -272,7 +286,7 @@
         </h1>
 
         <p class="mt-10 max-w-[60ch] text-[15px] leading-[1.7] text-ink2">
-          I run a fleet of <span class="bg-ink text-paper px-1.5 py-0.5 mx-0.5">10 AI agents</span> handling outreach, content, CRM, competitor watch, and reporting — end&#8209;to&#8209;end. 7+ years operating growth across Web3, fintech, and AI. Multiple zero&#8209;to&#8209;traction launches: millions of users, hundreds of millions in volume, real receipts below.
+          I run a fleet of <span class="agent-pill">10 AI agents</span> handling outreach, content, CRM, competitor watch, and reporting — end&#8209;to&#8209;end. 7+ years operating growth across Web3, fintech, and AI. Multiple zero&#8209;to&#8209;traction launches: millions of users, hundreds of millions in volume, real receipts below.
         </p>
 
         <div class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 text-[12px] text-mute">
